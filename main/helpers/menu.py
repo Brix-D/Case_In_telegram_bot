@@ -7,7 +7,7 @@ def generate_menu():
                 KeyboardButton(text="Покажи мне документацию")
             ],
             [
-                KeyboardButton(text="Свяжи меня с начальником"),
+                KeyboardButton(text="Другие вопросы"),
                 KeyboardButton(text="Покажи мне расписание")
             ]
         ]
@@ -17,3 +17,16 @@ def generate_menu():
 
 def hide_menu():
     return ReplyKeyboardRemove()
+
+def question_menu():
+    q_choice = [
+        [
+            KeyboardButton(text="Типичные вопросы")
+        ],
+        [
+            KeyboardButton(text="Задать вопрос")
+        ]
+    ]
+    menu = ReplyKeyboardMarkup(keyboard=q_choice, resize_keyboard=True)
+    return menu
+

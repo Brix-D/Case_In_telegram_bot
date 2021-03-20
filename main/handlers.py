@@ -1,10 +1,9 @@
-from main import bot, dispatcher, executor
+from main import bot, dispatcher
 import os
-from aiogram.types import Message, ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
+from aiogram.types import Message
 from aiogram.dispatcher.filters import Command, Text
-from aiogram.types import InputFile
 from config import admin_id
-from helpers.menu import generate_menu, hide_menu
+from helpers.menu import generate_menu, hide_menu, question_menu
 from helpers.send_document import upload_document, get_all_documents
 
 
@@ -36,12 +35,25 @@ async def show_documentation(message: Message):
         await message.answer_document(document=document, caption="Техника безопасности на АЭС")
 
 
-@dispatcher.message_handler(Text("Свяжи меня с начальником"))
-async def connect_to_boss(message: Message):
-    await message.answer(text="Вот форма связи: \nВернутся в меню: /menu", reply_markup=hide_menu())
-
-
 @dispatcher.message_handler(Text("Покажи мне расписание"))
 async def show_documentation(message: Message):
     await message.answer(text="Вот твой календарь: \nВернутся в меню: /menu", reply_markup=hide_menu())
+
+# Меню "Другие вопросы" (название может меняться)
+@dispatcher.message_handler(Text("Другие вопросы"))
+async def connect_to_boss(message: Message):
+    await message.answer(text="Другие вопросы: \nВернутся в меню: /menu", reply_markup=question_menu())
+    # Другие вопросы -> Типичные вопросы. Типичные вопросы можно прям тут описать - это нормальная практика. Штук 6-8 будет достаточно
+    @dispatcher.message_handler(Text("Типичные вопросы"))
+    async def connect_to_typical_q(message: Message):
+        await message.answer(text="Типичные вопросы: \nЕще не придумал - НУ ты глупый, конечно\nВернутся в меню: /menu", reply_markup=question_menu())
+    # Другие вопросы -> Задать вопрос.
+    @dispatcher.message_handler(Text("Задать вопрос"))
+    async def connect_to_new_q(message: Message):
+        await message.answer(text="Задать вопрос\n\nНапишите Ваш вопрос:\n\n\nДля отмены - вернутся в меню: /menu", reply_markup=hide_menu())
+    # hmm
+    @dispatcher.message_handler()
+    async def echo(message: Message):
+        text = f"@{message.chat.username} задает вопрос: {message.text}"
+        await bot.send_message(chat_id=admin_id, text=text)
 
