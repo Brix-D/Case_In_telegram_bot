@@ -7,5 +7,5 @@ bot = Bot(config.API_KEY, parse_mode="HTML")
 dispatcher = Dispatcher(bot, loop=loop)
 
 if __name__ == "__main__":
-    from handlers import dispatcher, send_to_admin
-    executor.start_polling(dispatcher, on_startup=send_to_admin)
+    from handlers import dispatcher, on_start_message
+    executor.start_polling(dispatcher, on_startup=on_start_message)
