@@ -14,5 +14,3 @@ async def receive_last_message(message: Message):
     # await bot.send_message(chat_id=message.from_user.id, text=text)
     await message.answer(text=text)
 
-
-# sddsds
