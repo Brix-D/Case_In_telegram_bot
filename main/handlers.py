@@ -1,9 +1,11 @@
 from main import bot, dispatcher, executor
-
+import os
 from aiogram.types import Message, ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
 from aiogram.dispatcher.filters import Command, Text
+from aiogram.types import InputFile
 from config import admin_id
 from helpers.menu import generate_menu, hide_menu
+from helpers.send_document import upload_document, get_all_documents
 
 
 async def on_start_message(dispatcher):
@@ -28,6 +30,10 @@ async def show_menu(message: Message):
 @dispatcher.message_handler(Text("Покажи мне документацию"))
 async def show_documentation(message: Message):
     await message.answer(text="Вот список основных документов: \nВернутся в меню: /menu", reply_markup=hide_menu())
+    directory = "documentation_files"
+    for file in get_all_documents(directory):
+        document = upload_document(os.path.join(directory, file))
+        await message.answer_document(document=document, caption="Техника безопасности на АЭС")
 
 
 @dispatcher.message_handler(Text("Свяжи меня с начальником"))
