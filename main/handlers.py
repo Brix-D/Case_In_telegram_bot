@@ -7,8 +7,14 @@ from helpers.menu import generate_menu, hide_menu
 
 
 async def on_start_message(dispatcher):
-    await bot.send_message(chat_id=admin_id, text="Бот запущен! Вот список возможных действий:",
+    await bot.send_message(chat_id=admin_id, text="Бот запущен!",
                            reply_markup=generate_menu())
+
+
+@dispatcher.message_handler(Command("start"))
+async def start_conversation(message: Message):
+    await message.answer(text="Бот запущен! Вот список возможных действий:\n" +
+                              "меню всегда можно вызвать с помощью команды /menu", reply_markup=generate_menu())
 
 
 @dispatcher.message_handler(Command("menu"))
