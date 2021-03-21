@@ -1,3 +1,5 @@
+import distutils
+
 from main import bot, dispatcher
 import os
 from aiogram.types import Message
@@ -28,7 +30,7 @@ async def show_menu(message: Message):
 
 @dispatcher.message_handler(Text("Покажи мне документацию"))
 async def show_documentation(message: Message):
-    await message.answer(text="Вот список основных документов: \nВернутся в меню: /menu", reply_markup=hide_menu())
+    await message.answer(text="Вот список основных документов: \nВернуться в меню: /menu", reply_markup=hide_menu())
     directory = "documentation_files"
     for file in get_all_documents(directory):
         document = upload_document(os.path.join(directory, file))
@@ -37,23 +39,30 @@ async def show_documentation(message: Message):
 
 @dispatcher.message_handler(Text("Покажи мне расписание"))
 async def show_documentation(message: Message):
-    await message.answer(text="Вот твой календарь: \nВернутся в меню: /menu", reply_markup=hide_menu())
+    await message.answer(text="Вот твой календарь: \nВернуться в меню: /menu", reply_markup=hide_menu())
 
 # Меню "Другие вопросы" (название может меняться)
 @dispatcher.message_handler(Text("Другие вопросы"))
 async def connect_to_boss(message: Message):
-    await message.answer(text="Другие вопросы: \nВернутся в меню: /menu", reply_markup=question_menu())
+    await message.answer(text="Другие вопросы: \nВернуться в меню: /menu", reply_markup=question_menu())
     # Другие вопросы -> Типичные вопросы. Типичные вопросы можно прям тут описать - это нормальная практика. Штук 6-8 будет достаточно
     @dispatcher.message_handler(Text("Типичные вопросы"))
     async def connect_to_typical_q(message: Message):
-        await message.answer(text="Типичные вопросы: \nЕще не придумал - НУ ты глупый, конечно\nВернутся в меню: /menu", reply_markup=question_menu())
+        await message.answer(text="Типичные вопросы: \nГде находится Мадагаскар? - На острове Мадагаскар!\nВернуться в меню: /menu", reply_markup=question_menu())
     # Другие вопросы -> Задать вопрос.
     @dispatcher.message_handler(Text("Задать вопрос"))
     async def connect_to_new_q(message: Message):
-        await message.answer(text="Задать вопрос\n\nНапишите Ваш вопрос:\n\n\nДля отмены - вернутся в меню: /menu", reply_markup=hide_menu())
+        global NEW_QUESTION_FLAG
+        NEW_QUESTION_FLAG = 'True'
+        await message.answer(text="Задать вопрос\n\nНапишите Ваш вопрос:\n\n\nДля отмены - вернуться в меню: /menu", reply_markup=hide_menu())
     # hmm
     @dispatcher.message_handler()
     async def echo(message: Message):
-        text = f"@{message.chat.username} задает вопрос: {message.text}"
-        await bot.send_message(chat_id=admin_id, text=text)
-
+        global NEW_QUESTION_FLAG
+        NEW_QUESTION_FLAG = NEW_QUESTION_FLAG.lower()
+        bool_n_q = bool(NEW_QUESTION_FLAG)
+        if(bool_n_q == True):
+            text = f"@{message.chat.username} задает вопрос: {message.text}"
+            NEW_QUESTION_FLAG = ''
+            await bot.send_message(chat_id=admin_id, text=text)
+            await message.answer(text="Ваш вопрос успешно задан.\n Ответ придёт вам в личные сообщения от администратора.\n Вернуться в меню: /menu")
