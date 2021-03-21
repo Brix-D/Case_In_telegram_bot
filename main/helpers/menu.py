@@ -27,8 +27,20 @@ def question_menu():
         ],
         [
             KeyboardButton(text="Задать вопрос" + create_smile("\\ud83d\\udcdd"))
+        ],
+        [
+            KeyboardButton(text="В меню")
         ]
     ]
     menu = ReplyKeyboardMarkup(keyboard=q_choice, resize_keyboard=True)
     return menu
 
+
+def back_to_menu():
+    q_choice = [
+        [
+            KeyboardButton(text="В меню")
+        ]
+    ]
+    menu = ReplyKeyboardMarkup(keyboard=q_choice, resize_keyboard=True)
+    return menu

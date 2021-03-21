@@ -1,6 +1,6 @@
 from app import bot, dispatcher
 from aiogram.types import Message
-from aiogram.dispatcher.filters import Command
+from aiogram.dispatcher.filters import Command, Text
 from main.config import admin_id, States
 
 from main.helpers.menu import main_menu
@@ -33,6 +33,7 @@ async def start_conversation(message: Message):
 
 
 @dispatcher.message_handler(Command("menu"), state="*")
+@dispatcher.message_handler(Text("В меню"), state="*")
 async def general_menu(message: Message):
     """
     Команда показать меню
