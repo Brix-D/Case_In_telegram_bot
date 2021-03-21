@@ -1,7 +1,7 @@
 from aiogram.types import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
 
 
-def generate_menu():
+def main_menu():
     keys = [
             [
                 KeyboardButton(text="Покажи мне документацию")
@@ -17,6 +17,7 @@ def generate_menu():
 
 def hide_menu():
     return ReplyKeyboardRemove()
+
 
 def question_menu():
     q_choice = [
