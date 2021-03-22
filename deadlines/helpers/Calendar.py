@@ -15,7 +15,7 @@ class Calendar:
 
     def get_events_for_range(self, date_start, date_end):
         events_result = self.connection.events().list(
-            calendarId=calendar_id, timeMin=now, timeMax=now_1week, maxResults=100, singleEvents=True,
+            calendarId=calendar_id, timeMin=date_start, timeMax=date_end, maxResults=100, singleEvents=True,
             orderBy='startTime').execute()
         events = events_result.get('items', [])
         return events

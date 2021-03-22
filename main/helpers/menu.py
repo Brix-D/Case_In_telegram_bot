@@ -27,6 +27,9 @@ def deadlines_menu():  # меню для просмотра и создания 
         ],
         [
             KeyboardButton(text="Создать событие" + create_smile("\\ud83d\\uddd3"))
+        ],
+        [
+            KeyboardButton(text="В меню")
         ]
     ]
     menu = ReplyKeyboardMarkup(keyboard=q_choice, resize_keyboard=True)

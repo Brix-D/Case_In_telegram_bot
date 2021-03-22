@@ -9,7 +9,7 @@ from main.handlers import general_menu
 from main.config import client_secret_calendar, calendar_id
 from main.helpers.menu import back_to_menu, deadlines_menu
 from main.helpers.smiles import create_smile
-from deadlines.helpers import Calendar
+from deadlines.helpers.Calendar import Calendar
 
 import httplib2
 import datetime
