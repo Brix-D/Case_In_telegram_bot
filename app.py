@@ -25,6 +25,6 @@ def main():
 if __name__ == "__main__":
     from main.handlers import dispatcher, on_start_message, on_finish_message
     from documentation.handlers import show_documentation
-    from deadlines.handlers import show_calendar
+    from deadlines.handlers import show_calendar, create_event
     from questions.handlers import question_menu, other_questions, ask_new_question
     main()

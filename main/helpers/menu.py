@@ -9,7 +9,7 @@ def main_menu():
             ],
             [
                 KeyboardButton(text="Другие вопросы" + create_smile("\\u2753")),
-                KeyboardButton(text="Покажи мне расписание" + create_smile("\\ud83d\\uddd3"))
+                KeyboardButton(text="События" + create_smile("\\ud83d\\uddd3"))
             ]
         ]
     menu = ReplyKeyboardMarkup(keyboard=keys, resize_keyboard=True)
@@ -18,6 +18,19 @@ def main_menu():
 
 def hide_menu():
     return ReplyKeyboardRemove()
+
+
+def deadlines_menu():  # меню для просмотра и создания событий
+    q_choice = [
+        [
+            KeyboardButton(text="Покажи мне события" + create_smile("\\ud83d\\uddd3")),
+        ],
+        [
+            KeyboardButton(text="Создать событие" + create_smile("\\ud83d\\uddd3"))
+        ]
+    ]
+    menu = ReplyKeyboardMarkup(keyboard=q_choice, resize_keyboard=True)
+    return menu
 
 
 def question_menu():
