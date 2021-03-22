@@ -1,10 +1,12 @@
 import sqlite3
 
+from main.config import database_path
+
 
 class Worker:
 
     def __init__(self):
-        self.connection = sqlite3.connect('../Case_in_bot.db')
+        self.connection = sqlite3.connect(database_path)
         self.connection.row_factory = sqlite3.Row
 
     def get_all_workers(self):
