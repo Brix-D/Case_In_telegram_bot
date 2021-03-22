@@ -45,6 +45,9 @@ def question_menu():
             KeyboardButton(text="Задать вопрос" + create_smile("\\ud83d\\udcdd"))
         ],
         [
+            KeyboardButton(text="Моя должность" + create_smile("\\ud83d\\udcbc"))
+        ],
+        [
             KeyboardButton(text="В меню")
         ]
     ]
