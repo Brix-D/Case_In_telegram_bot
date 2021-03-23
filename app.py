@@ -27,4 +27,5 @@ if __name__ == "__main__":
     from documentation.handlers import show_documentation
     from deadlines.handlers import show_calendar, create_event
     from questions.handlers import question_menu, other_questions, ask_new_question
+    from main.helpers.registration import enter_email, enter_post
     main()

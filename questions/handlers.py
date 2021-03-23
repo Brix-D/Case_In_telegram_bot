@@ -42,13 +42,13 @@ async def ask_new_question(message: Message):
     :param message:
     :return:
     """
-    await States.ENTER_TEXT_STATE.set()
+    await States.ENTER_QUESTION_STATE.set()
     await message.answer(text="Задать вопрос\n\nНапишите Ваш вопрос:\n\n\n",
                          reply_markup=back_to_menu())
 # hmm
 
 
-@dispatcher.message_handler(state=States.ENTER_TEXT_STATE)
+@dispatcher.message_handler(state=States.ENTER_QUESTION_STATE)
 async def resend_message_to_boss(message: Message):
     """
     Перенаправляет сообщение начальнику (админу)

@@ -10,6 +10,7 @@ documents_directory = "..\\documentation\\documentation_files"
 database_path = "../Case_in_bot.db"
 ROSATOM_SITE = "https://www.rosatom.ru/"
 
+
 class States(StatesGroup):
     """
     Машина конечных состояний:
@@ -18,4 +19,6 @@ class States(StatesGroup):
     состояния переключатся при функциях вроде "задать вопрос"
     """
     COMMAND_STATE = State()
-    ENTER_TEXT_STATE = State()
+    ENTER_QUESTION_STATE = State()
+    ENTER_EMAIL_STATE = State()
+    ENTER_POST_STATE = State()
