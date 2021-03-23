@@ -1,3 +1,4 @@
+from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
 from aiogram.dispatcher.filters import Text
 
@@ -49,17 +50,18 @@ async def ask_new_question(message: Message):
 
 
 @dispatcher.message_handler(state=States.ENTER_QUESTION_STATE)
-async def resend_message_to_boss(message: Message):
+async def resend_message_to_boss(message: Message, state: FSMContext):
     """
     Перенаправляет сообщение начальнику (админу)
     :param message:
+    :param state:
     :return:
     """
     await States.COMMAND_STATE.set()
     text = f"@{message.chat.username} задает вопрос: {message.text}"
     await bot.send_message(chat_id=admin_id, text=text)
     await message.answer(text="Ваш вопрос успешно задан.\nОтвет придёт вам в личные сообщения от администратора.\n")
-    await general_menu(message)
+    await general_menu(message, state)
 
 
 @dispatcher.message_handler(Text("Моя должность" + create_smile("\\ud83d\\udcbc")), state=Authorized_states)

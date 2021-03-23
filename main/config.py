@@ -25,4 +25,4 @@ class States(StatesGroup):
     ENTER_POST_STATE = State()
 
 
-Authorized_states = [States.COMMAND_STATE, States.ENTER_QUESTION_STATE]
+Authorized_states = [None, States.COMMAND_STATE, States.ENTER_QUESTION_STATE]

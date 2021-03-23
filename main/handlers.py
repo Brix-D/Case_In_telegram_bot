@@ -59,6 +59,6 @@ async def general_menu(message: Message, state: FSMContext):
 
 @dispatcher.message_handler(Text("Сайт компании" + create_smile("\\ud83c\\udf10")), state=Authorized_states)
 async def go_to_web_site(message: Message):
-    webbrowser.open_new(ROSATOM_SITE)
-
+    # webbrowser.open_new(ROSATOM_SITE)
+    await message.answer(text=f"<a href=\"{ROSATOM_SITE}\">{ROSATOM_SITE}</a>", parse_mode="HTML")
     # TODO
