@@ -1,18 +1,15 @@
 from aiogram.types import Message
 from aiogram.dispatcher.filters import Text
 
-from apiclient import discovery
 from oauth2client.client import HttpAccessTokenRefreshError
-from oauth2client.service_account import ServiceAccountCredentials
 
 from app import dispatcher
 from main.handlers import general_menu
-from main.config import client_secret_calendar, calendar_id
+from main.config import calendar_id
 from main.helpers.menu import back_to_menu, deadlines_menu
 from main.helpers.smiles import create_smile
 from deadlines.helpers.Calendar import Calendar
 
-import httplib2
 import datetime
 import time
 

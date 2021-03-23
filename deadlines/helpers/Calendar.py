@@ -1,3 +1,6 @@
+import pickle
+
+from google_auth_oauthlib.flow import InstalledAppFlow
 import httplib2
 from aiogram.types import Message
 from apiclient import discovery
@@ -11,10 +14,9 @@ from main.helpers.menu import back_to_menu
 class Calendar:
 
     def __init__(self):
-        credentials = ServiceAccountCredentials.from_json_keyfile_name(client_secret_calendar,
-                                                                       'https://www.googleapis.com/auth/calendar')
-        http = credentials.authorize(httplib2.Http())
-        self.connection = discovery.build('calendar', 'v3', http=http)
+        scopes = ['https://www.googleapis.com/auth/calendar']
+        credentials = pickle.load(open("token.pkl", "rb"))
+        self.connection = discovery.build("calendar", "v3", credentials=credentials)
 
     def get_events_for_range(self, date_start, date_end):
         events_result = self.connection.events().list(
