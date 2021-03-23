@@ -5,7 +5,8 @@ from main.helpers.smiles import create_smile
 def main_menu():
     keys = [
             [
-                KeyboardButton(text="Покажи мне документацию" + create_smile("\\ud83d\\udcc4"))
+                KeyboardButton(text="Покажи мне документацию" + create_smile("\\ud83d\\udcc4")),
+                KeyboardButton(text="Сайт компании" + create_smile("\\ud83c\\udf10"))
             ],
             [
                 KeyboardButton(text="Другие вопросы" + create_smile("\\u2753")),

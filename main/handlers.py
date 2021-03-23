@@ -1,9 +1,11 @@
 from app import bot, dispatcher
 from aiogram.types import Message
 from aiogram.dispatcher.filters import Command, Text
-from main.config import admin_id, States
+import webbrowser
 
+from main.config import admin_id, States, ROSATOM_SITE
 from main.helpers.menu import main_menu
+from main.helpers.smiles import create_smile
 
 
 async def on_start_message(dispatcher):
@@ -47,3 +49,6 @@ async def general_menu(message: Message):
     await States.COMMAND_STATE.set()
 
 
+@dispatcher.message_handler(Text("Сайт компании"  + create_smile("\\ud83c\\udf10")), state="*")
+async def go_to_web_site(message: Message):
+    webbrowser.open_new(ROSATOM_SITE)
