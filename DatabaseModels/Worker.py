@@ -3,6 +3,7 @@ import sqlite3
 from main.config import database_path
 from DatabaseModels.helpers import exceptions
 
+
 class Worker:
 
     def __init__(self):

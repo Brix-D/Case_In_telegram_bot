@@ -5,8 +5,8 @@ from aiogram.types import Message
 from aiogram.dispatcher.filters import Command, Text
 import webbrowser
 
-from main.config import admin_id, States, ROSATOM_SITE
-from main.helpers.menu import main_menu, back_to_menu
+from main.config import admin_id, States, ROSATOM_SITE, Authorized_states
+from main.helpers.menu import main_menu, back_to_menu, hide_menu
 from main.helpers.smiles import create_smile
 
 
@@ -35,11 +35,11 @@ async def start_conversation(message: Message):
                              # "меню всегда можно вызвать с помощью команды /menu", reply_markup=main_menu())
     await States.ENTER_EMAIL_STATE.set()
     await message.answer(text="Давайте пройдем простую процедуру регистрации. Это займет не более двух минут")
-    await message.answer(text="Введите ваш E-mail:", reply_markup=back_to_menu())
+    await message.answer(text="Введите ваш E-mail:", reply_markup=hide_menu())
 
 
-@dispatcher.message_handler(Command("menu"), state="*")
-@dispatcher.message_handler(Text("В меню"), state="*")
+@dispatcher.message_handler(Command("menu"), state=Authorized_states)
+@dispatcher.message_handler(Text("В меню"), state=Authorized_states)
 async def general_menu(message: Message, state: FSMContext):
     """
     Команда показать меню
@@ -57,7 +57,7 @@ async def general_menu(message: Message, state: FSMContext):
     await States.COMMAND_STATE.set()
 
 
-@dispatcher.message_handler(Text("Сайт компании" + create_smile("\\ud83c\\udf10")), state="*")
+@dispatcher.message_handler(Text("Сайт компании" + create_smile("\\ud83c\\udf10")), state=Authorized_states)
 async def go_to_web_site(message: Message):
     webbrowser.open_new(ROSATOM_SITE)
 

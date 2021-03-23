@@ -18,7 +18,11 @@ class States(StatesGroup):
     также есть нулевое состояние, при запуске
     состояния переключатся при функциях вроде "задать вопрос"
     """
+    # NON_AUTHORISED_STATE = State()
     COMMAND_STATE = State()
     ENTER_QUESTION_STATE = State()
     ENTER_EMAIL_STATE = State()
     ENTER_POST_STATE = State()
+
+
+Authorized_states = [States.COMMAND_STATE, States.ENTER_QUESTION_STATE]

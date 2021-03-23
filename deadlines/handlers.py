@@ -5,7 +5,7 @@ from oauth2client.client import HttpAccessTokenRefreshError
 
 from app import dispatcher
 from main.handlers import general_menu
-from main.config import calendar_id
+from main.config import calendar_id, States, Authorized_states
 from main.helpers.menu import back_to_menu, deadlines_menu
 from main.helpers.smiles import create_smile
 from deadlines.helpers.Calendar import Calendar
@@ -14,7 +14,7 @@ import datetime
 import time
 
 
-@dispatcher.message_handler(Text("События" + create_smile("\\ud83d\\uddd3")), state="*")
+@dispatcher.message_handler(Text("События" + create_smile("\\ud83d\\uddd3")), state=Authorized_states)
 async def show_calendar(message: Message):
     """
     Меню "События" (название может меняться)
@@ -24,7 +24,7 @@ async def show_calendar(message: Message):
     await message.answer(text="Выбери действие: \n", reply_markup=deadlines_menu())
 
 
-@dispatcher.message_handler(Text("Покажи мне события" + create_smile("\\ud83d\\uddd3")), state="*")
+@dispatcher.message_handler(Text("Покажи мне события" + create_smile("\\ud83d\\uddd3")), state=Authorized_states)
 async def show_calendar(message: Message):
     """
         Команда показывает события из общедоступного календаря
@@ -62,6 +62,6 @@ async def show_calendar(message: Message):
     await message.answer(text=message_text, parse_mode='HTML', reply_markup=back_to_menu())
 
 
-@dispatcher.message_handler(Text("Создать событие" + create_smile("\\ud83d\\uddd3")), state="*")
+@dispatcher.message_handler(Text("Создать событие" + create_smile("\\ud83d\\uddd3")), state=Authorized_states)
 async def create_event(message: Message):
     print('доделать')

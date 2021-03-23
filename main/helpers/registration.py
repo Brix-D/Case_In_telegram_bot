@@ -5,7 +5,7 @@ from aiogram.types import Message
 
 from app import dispatcher
 from main.config import States
-from main.helpers.menu import back_to_menu, main_menu
+from main.helpers.menu import back_to_menu, main_menu, hide_menu
 from DatabaseModels.Worker import Worker
 from DatabaseModels.helpers.exceptions import PostNotFound, IdNotUnique
 
@@ -15,7 +15,7 @@ async def enter_email(message: Message, state: FSMContext):
     email = message.text
     async with state.proxy() as userdata:
         userdata["email"] = email
-    await message.answer(text="Введите вашу должность:", reply_markup=back_to_menu())
+    await message.answer(text="Введите вашу должность:", reply_markup=hide_menu())
     await States.ENTER_POST_STATE.set()
 
 
@@ -34,7 +34,7 @@ async def enter_post(message: Message, state: FSMContext):
     except PostNotFound as post_err:
         text_message = "Такой должности не существует.\nПопробуйте ввести снова:"
         print(post_err)
-        markup = back_to_menu()
+        markup = hide_menu()
     except IdNotUnique as unique_err:
         text_message = "Вы уже зарегистрированы"
         print(unique_err)
