@@ -8,7 +8,8 @@ from main.handlers import general_menu
 from main.helpers.menu import hide_menu, question_menu, back_to_menu
 from main.helpers.smiles import create_smile
 from DatabaseModels.Worker import Worker
-
+import json
+import codecs
 
 @dispatcher.message_handler(Text("Другие вопросы" + create_smile("\\u2753")), state=Authorized_states)
 async def other_questions(message: Message):
@@ -30,10 +31,13 @@ async def typical_questions(message: Message):
     :param message:
     :return:
     """
-    await message.answer(text="Типичные вопросы: \nГде находится Мадагаскар? - На острове Мадагаскар!" +
-                              "\n",
-                         reply_markup=back_to_menu())
-
+    with codecs.open("questions\\typical_q.json", "r", "utf_8_sig") as file:
+        json_str = file.read()
+    list_question_obj = json.loads(json_str)
+    for i in range(len(list_question_obj)):
+         question = create_smile("\\u2705") + list_question_obj[i]['question'] + "\n\n" + list_question_obj[i]['answer']
+         await message.answer(text=f"{question}")
+    await message.answer(text="Если остались вопросы, вы можете задать их администатору.", reply_markup=back_to_menu())
 
 # Другие вопросы -> Задать вопрос.
 @dispatcher.message_handler(Text("Задать вопрос" + create_smile("\\ud83d\\udcdd")), state=Authorized_states)
