@@ -11,6 +11,7 @@ from DatabaseModels.Worker import Worker
 import json
 import codecs
 
+
 @dispatcher.message_handler(Text("Другие вопросы" + create_smile("\\u2753")), state=Authorized_states)
 async def other_questions(message: Message):
     """
@@ -38,6 +39,7 @@ async def typical_questions(message: Message):
          question = create_smile("\\u2705") + list_question_obj[i]['question'] + "\n\n" + list_question_obj[i]['answer']
          await message.answer(text=f"{question}")
     await message.answer(text="Если остались вопросы, вы можете задать их администатору.", reply_markup=back_to_menu())
+
 
 # Другие вопросы -> Задать вопрос.
 @dispatcher.message_handler(Text("Задать вопрос" + create_smile("\\ud83d\\udcdd")), state=Authorized_states)

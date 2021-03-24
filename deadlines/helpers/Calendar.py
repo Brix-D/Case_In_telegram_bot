@@ -26,5 +26,5 @@ class Calendar:
         return events
 
     def create_event(self):
-        # To Do
+        # toDo
         pass
