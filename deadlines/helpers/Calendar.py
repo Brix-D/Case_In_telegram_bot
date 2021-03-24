@@ -25,6 +25,25 @@ class Calendar:
         events = events_result.get('items', [])
         return events
 
-    def create_event(self):
-        # toDo
-        pass
+    def create_event(self, eventdata):
+        event = {
+            'summary': eventdata["summary"],
+            'location': eventdata["location"],
+            'description': eventdata["description"],
+            'start': {
+                'dateTime': eventdata["start_date"],
+                'timeZone': 'Europe/Moscow',
+            },
+            'end': {
+                'dateTime': eventdata["end_date"],
+                'timeZone': 'Europe/Moscow',
+            },
+        }
+        event = self.connection.events().insert(calendarId=calendar_id, body=event).execute()
+        if event["status"] == 'confirmed':
+            text_message = 'Событие успешно создано\n\n<a href="%s">Подробнее...</a>' % event['htmlLink']
+            '<a href="%s">Подробнее...</a>'
+        else:
+            text_message = "Событие не создано"
+        return [event["status"], text_message]
+
