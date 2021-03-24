@@ -1,13 +1,14 @@
 from aiogram.dispatcher import FSMContext
 
 from DatabaseModels.Worker import Worker
+from DatabaseModels.admin import Admin
 from app import bot, dispatcher
 from aiogram.types import Message
 from aiogram.dispatcher.filters import Command, Text
 from aiogram.utils.exceptions import BotBlocked
 
 from main.config import admin_id, States, ROSATOM_SITE, Authorized_states
-from main.helpers.menu import main_menu, back_to_menu, hide_menu
+from main.helpers.menu import main_menu, back_to_menu, hide_menu, generate_workers_buttons
 from main.helpers.smiles import create_smile
 
 
@@ -39,6 +40,8 @@ async def start_conversation(message: Message):
         await States.ENTER_EMAIL_STATE.set()
         await message.answer(text="Давайте пройдем простую процедуру регистрации. Это займет не более двух минут")
         await message.answer(text="Введите ваш E-mail:", reply_markup=hide_menu())
+        # await bot.send_message(chat_id=admin_id, text=f"Новая заявка на регистрацию: @{message.from_user.username}")
+        # await message.answer(text="Запрос на вашу регистрацию направлен администратору", reply_markup=hide_menu())
 
 
 @dispatcher.message_handler(Command("menu"), state=Authorized_states)

@@ -23,6 +23,7 @@ class States(StatesGroup):
     ENTER_QUESTION_STATE = State()
     ENTER_EMAIL_STATE = State()
     ENTER_POST_STATE = State()
+    SELECT_WORKER_STATE = State()
 
 
-Authorized_states = [None, States.COMMAND_STATE, States.ENTER_QUESTION_STATE]
+Authorized_states = [None, States.COMMAND_STATE, States.ENTER_QUESTION_STATE, States.SELECT_WORKER_STATE]

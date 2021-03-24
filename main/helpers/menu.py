@@ -64,3 +64,27 @@ def back_to_menu():
     ]
     menu = ReplyKeyboardMarkup(keyboard=q_choice, resize_keyboard=True)
     return menu
+
+
+def check_new_users_menu():
+    q_choice = [
+        [
+            KeyboardButton(text="Просмотреть новые заявки")
+        ]
+    ]
+    menu = ReplyKeyboardMarkup(keyboard=q_choice, resize_keyboard=True)
+    return menu
+
+
+def generate_workers_buttons(workers):
+    q_choice = []
+
+    for worker in workers:
+        print(worker)
+        full_name = worker["Firstname"] + " "
+        if worker["Lastname"]:
+            full_name += worker["Lastname"]
+        q_choice.append([KeyboardButton(text=full_name)])
+    q_choice.append([KeyboardButton(text="В меню")])
+    menu = ReplyKeyboardMarkup(keyboard=q_choice, resize_keyboard=True)
+    return menu
