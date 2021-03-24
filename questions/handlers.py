@@ -36,8 +36,8 @@ async def typical_questions(message: Message):
         json_str = file.read()
     list_question_obj = json.loads(json_str)
     for i in range(len(list_question_obj)):
-         question = create_smile("\\u2705") + list_question_obj[i]['question'] + "\n\n" + list_question_obj[i]['answer']
-         await message.answer(text=f"{question}")
+        question = create_smile("\\u2705") + list_question_obj[i]['question'] + "\n\n" + list_question_obj[i]['answer']
+        await message.answer(text=f"{question}")
     await message.answer(text="Если остались вопросы, вы можете задать их администатору.", reply_markup=back_to_menu())
 
 
@@ -67,7 +67,7 @@ async def resend_message_to_boss(message: Message, state: FSMContext):
     text = f"@{message.chat.username} задает вопрос: {message.text}"
     await bot.send_message(chat_id=admin_id, text=text)
     await message.answer(text="Ваш вопрос успешно задан.\nОтвет придёт вам в личные сообщения от администратора.\n")
-    await general_menu(message, state)
+    await general_menu(message)
 
 
 @dispatcher.message_handler(Text("Моя должность" + create_smile("\\ud83d\\udcbc")), state=Authorized_states)

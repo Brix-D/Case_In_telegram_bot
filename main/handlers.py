@@ -1,5 +1,6 @@
 from aiogram.dispatcher import FSMContext
 
+from DatabaseModels.Worker import Worker
 from app import bot, dispatcher
 from aiogram.types import Message
 from aiogram.dispatcher.filters import Command, Text
@@ -31,24 +32,25 @@ async def start_conversation(message: Message):
     :param message:
     :return:
     """
-    # await message.answer(text="Бот запущен! Вот список возможных действий:\n" +
-                             # "меню всегда можно вызвать с помощью команды /menu", reply_markup=main_menu())
-    await States.ENTER_EMAIL_STATE.set()
-    await message.answer(text="Давайте пройдем простую процедуру регистрации. Это займет не более двух минут")
-    await message.answer(text="Введите ваш E-mail:", reply_markup=hide_menu())
+    if Worker.check_worker_exists(message.from_user):
+        await States.COMMAND_STATE.set()
+        await general_menu(message)
+    else:
+        await States.ENTER_EMAIL_STATE.set()
+        await message.answer(text="Давайте пройдем простую процедуру регистрации. Это займет не более двух минут")
+        await message.answer(text="Введите ваш E-mail:", reply_markup=hide_menu())
 
 
 @dispatcher.message_handler(Command("menu"), state=Authorized_states)
 @dispatcher.message_handler(Text("В меню"), state=Authorized_states)
-async def general_menu(message: Message, state: FSMContext):
+async def general_menu(message: Message): # , state: FSMContext
     """
     Команда показать меню
-    :param state:
     :param message:
     :return:
     """
-    async with state.proxy() as userdata:
-        userdata.clear()
+    # async with state.proxy() as userdata:
+    #     userdata.clear()
     await message.answer(text="Выбери действие", reply_markup=main_menu())
     await States.COMMAND_STATE.set()
 

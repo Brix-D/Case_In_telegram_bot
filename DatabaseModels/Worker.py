@@ -35,3 +35,12 @@ class Worker:
             elif str(IE) == "NOT NULL constraint failed: Worker.Post_id":
                 raise exceptions.PostNotFound("Должность не найдена")
         self.connection.commit()
+
+    @staticmethod
+    def check_worker_exists(user):
+        query_data = (user.id,)
+        connection = sqlite3.connect(database_path)
+        cursor = connection.cursor()
+        result = cursor.execute("SELECT EXISTS (SELECT * FROM Worker Where Telegram_id = ?)", query_data)
+        result_int = result.fetchone()[0]
+        return bool(result_int)
