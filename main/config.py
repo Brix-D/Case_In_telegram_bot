@@ -1,5 +1,6 @@
 from aiogram.dispatcher.filters.state import StatesGroup, State
-API_KEY = "1707362497:AAFSyW_HreeIUZ-5DSdk5xFDe_DCWyIUB8M"
+# API_KEY = "1707362497:AAFSyW_HreeIUZ-5DSdk5xFDe_DCWyIUB8M"
+API_KEY = "1787274187:AAFKOJPLmdbrIKVRRCi7LMAcL49Su042b74"
 admin_id = 1011677109
 calendar_id = "bbottelegram@gmail.com"  # календарь в общем доступе
 # client_secret_calendar = "deadlines\\client_secret.json"  # Google API Calendar

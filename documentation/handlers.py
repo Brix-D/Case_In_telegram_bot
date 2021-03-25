@@ -21,4 +21,4 @@ async def show_documentation(message: Message):
     # directory = os.path.join("..", "documentation", "documentation_files")
     for file in get_all_documents(documents_directory):
         document = upload_document(os.path.join(documents_directory, file))
-        await message.answer_document(document=document, caption="Техника безопасности на АЭС")
+        await message.answer_document(document=document)
