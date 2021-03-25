@@ -32,4 +32,15 @@ class States(StatesGroup):
     ENTER_DESCRIPTION_STATE = State()
 
 
-Authorized_states = [None, States.COMMAND_STATE, States.ENTER_QUESTION_STATE, States.SELECT_WORKER_STATE]
+Authorized_states = [
+    None,
+    States.COMMAND_STATE,
+    States.ENTER_QUESTION_STATE,
+    States.SELECT_WORKER_STATE,
+    States.ENTER_SUMMARY_STATE,
+    States.ENTER_DATESTART_STATE,
+    States.ENTER_DATEEND_STATE,
+    States.ENTER_TIMESTART_STATE,
+    States.ENTER_TIMEEND_STATE,
+    States.ENTER_DESCRIPTION_STATE,
+]

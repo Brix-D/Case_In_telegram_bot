@@ -5,7 +5,7 @@ from aiogram.dispatcher.filters import Text
 from oauth2client.client import HttpAccessTokenRefreshError
 
 from app import dispatcher
-from main.config import States, Authorized_states
+from main.config import States, Authorized_states, admin_id
 from main.helpers.menu import back_to_menu, deadlines_menu, hide_menu, main_menu
 from main.helpers.smiles import create_smile
 from deadlines.helpers.Calendar import Calendar
@@ -15,13 +15,13 @@ import time
 
 
 @dispatcher.message_handler(Text("События" + create_smile("\\ud83d\\uddd3")), state=Authorized_states)
-async def show_calendar(message: Message):
+async def show_calendar_menu(message: Message):
     """
     Меню "События" (название может меняться)
     :param message:
     :return:
     """
-    await message.answer(text="Выбери действие: \n", reply_markup=deadlines_menu())
+    await message.answer(text="Выбери действие: \n", reply_markup=deadlines_menu(message.from_user))
 
 
 @dispatcher.message_handler(Text("Покажи мне события" + create_smile("\\ud83d\\uddd3")), state=Authorized_states)
@@ -59,7 +59,8 @@ async def show_events(message: Message):
     await message.answer(text=message_text, parse_mode='HTML', reply_markup=back_to_menu())
 
 
-@dispatcher.message_handler(Text("Создать событие" + create_smile("\\ud83d\\uddd3")), state=Authorized_states)
+@dispatcher.message_handler(Text("Создать событие" + create_smile("\\ud83d\\uddd3")), lambda message: message.from_user.id == admin_id,
+                            state=Authorized_states,)
 async def create_event(message: Message):
     await message.answer(text="Введите название события:", reply_markup=hide_menu())
     await States.ENTER_SUMMARY_STATE.set()

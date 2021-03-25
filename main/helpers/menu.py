@@ -30,18 +30,20 @@ def hide_menu():
     return ReplyKeyboardRemove()
 
 
-def deadlines_menu():  # меню для просмотра и создания событий
+def deadlines_menu(user=None):  # меню для просмотра и создания событий
     q_choice = [
         [
             KeyboardButton(text="Покажи мне события" + create_smile("\\ud83d\\uddd3")),
-        ],
-        [
-            KeyboardButton(text="Создать событие" + create_smile("\\ud83d\\uddd3"))
-        ],
-        [
-            KeyboardButton(text="В меню")
         ]
     ]
+    if user.id == admin_id:
+        q_choice.append([
+            KeyboardButton(text="Создать событие" + create_smile("\\ud83d\\uddd3"))
+        ])
+    q_choice.append([
+        KeyboardButton(text="В меню")
+    ])
+
     menu = ReplyKeyboardMarkup(keyboard=q_choice, resize_keyboard=True)
     return menu
 
