@@ -32,7 +32,7 @@ async def typical_questions(message: Message):
     :param message:
     :return:
     """
-    with codecs.open("questions\\typical_q.json", "r", "utf_8_sig") as file:
+    with codecs.open("..\\questions\\typical_q.json", "r", "utf_8_sig") as file:
         json_str = file.read()
     list_question_obj = json.loads(json_str)
     for i in range(len(list_question_obj)):
