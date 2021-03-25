@@ -54,7 +54,7 @@ async def general_menu(message: Message): # , state: FSMContext
     """
     # async with state.proxy() as userdata:
     #     userdata.clear()
-    await message.answer(text="Выбери действие", reply_markup=main_menu())
+    await message.answer(text="Выбери действие", reply_markup=main_menu(message.from_user))
     await States.COMMAND_STATE.set()
 
 

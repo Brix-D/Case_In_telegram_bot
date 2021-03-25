@@ -1,8 +1,10 @@
-from aiogram.types import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, InlineKeyboardButton
+
+from main.config import admin_id
 from main.helpers.smiles import create_smile
 
 
-def main_menu():
+def main_menu(user=None):
     keys = [
             [
                 KeyboardButton(text="Покажи мне документацию" + create_smile("\\ud83d\\udcc4")),
@@ -13,6 +15,13 @@ def main_menu():
                 KeyboardButton(text="События" + create_smile("\\ud83d\\uddd3"))
             ]
         ]
+    if user:
+        if user.id == admin_id:
+            keys.append(
+                [
+                    KeyboardButton(text="Просмотреть новые заявки")
+                ]
+            )
     menu = ReplyKeyboardMarkup(keyboard=keys, resize_keyboard=True)
     return menu
 
@@ -81,9 +90,11 @@ def generate_workers_buttons(workers):
 
     for worker in workers:
         print(worker)
-        full_name = worker["Firstname"] + " "
+        full_name = str(worker["Telegram_id"]) + " "
+        full_name += worker["Firstname"] + " "
         if worker["Lastname"]:
             full_name += worker["Lastname"]
+
         q_choice.append([KeyboardButton(text=full_name)])
     q_choice.append([KeyboardButton(text="В меню")])
     menu = ReplyKeyboardMarkup(keyboard=q_choice, resize_keyboard=True)
