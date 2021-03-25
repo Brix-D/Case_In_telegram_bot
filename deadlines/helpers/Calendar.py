@@ -28,7 +28,6 @@ class Calendar:
     def create_event(self, eventdata):
         event = {
             'summary': eventdata["summary"],
-            'location': eventdata["location"],
             'description': eventdata["description"],
             'start': {
                 'dateTime': eventdata["start_date"],

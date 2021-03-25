@@ -127,10 +127,9 @@ async def enter_date_end(message: Message, state: FSMContext):
 @dispatcher.message_handler(state=States.ENTER_TIMEEND_STATE)
 async def enter_time_end(message: Message, state: FSMContext):
     time_end = message.text
+    global userevent_global
     async with state.proxy() as userevent:
         userevent["time_end"] = time_end
-    async with state.proxy() as userevent:
-        userevent_global = userevent
     async with state.proxy() as userevent:
         userevent["end_date"] = str(userevent_global["date_end"] + 'T' + userevent_global["time_end"] + ':00+03:00')
     async with state.proxy() as userevent:

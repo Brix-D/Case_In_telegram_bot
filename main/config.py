@@ -25,7 +25,6 @@ class States(StatesGroup):
     ENTER_POST_STATE = State()
     SELECT_WORKER_STATE = State()
     ENTER_SUMMARY_STATE = State()
-    ENTER_LOCATION_STATE = State()
     ENTER_DATESTART_STATE = State()
     ENTER_DATEEND_STATE = State()
     ENTER_TIMESTART_STATE = State()
