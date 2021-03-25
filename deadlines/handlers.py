@@ -5,8 +5,7 @@ from aiogram.dispatcher.filters import Text
 from oauth2client.client import HttpAccessTokenRefreshError
 
 from app import dispatcher
-from main.handlers import general_menu
-from main.config import calendar_id, States, Authorized_states
+from main.config import States, Authorized_states
 from main.helpers.menu import back_to_menu, deadlines_menu, hide_menu, main_menu
 from main.helpers.smiles import create_smile
 from deadlines.helpers.Calendar import Calendar
@@ -26,7 +25,7 @@ async def show_calendar(message: Message):
 
 
 @dispatcher.message_handler(Text("Покажи мне события" + create_smile("\\ud83d\\uddd3")), state=Authorized_states)
-async def show_calendar(message: Message):
+async def show_events(message: Message):
     """
         Команда показывает события из общедоступного календаря
         :param message:
@@ -53,9 +52,6 @@ async def show_calendar(message: Message):
                 event_title = event['summary']
                 full_calendar_link = '<a href="%s">Подробнее...</a>' % event['htmlLink']
                 event_start = event['start'].get('dateTime')
-
-                # message = message + '%s\n%s\n%s\n%s\n\n' % (event_title, event_start, event_description, full_calendar_link)
-
                 message_text = message_text + f"\n{event_title}\n{event_start}\n{event_description}\n{full_calendar_link}\n"
     except HttpAccessTokenRefreshError as ex:
         message_text = "Токен доступа к календарю истек!"
@@ -74,68 +70,73 @@ async def enter_summary(message: Message, state: FSMContext):
     summary = message.text
     async with state.proxy() as userevent:
         userevent["summary"] = summary
-    await message.answer(text="Введите место проведения события:", reply_markup=hide_menu())
-    await States.ENTER_LOCATION_STATE.set()
-
-
-@dispatcher.message_handler(state=States.ENTER_LOCATION_STATE)
-async def enter_summary(message: Message, state: FSMContext):
-    location = message.text
-    async with state.proxy() as userevent:
-        userevent["location"] = location
     await message.answer(text="Введите дату начала события в формате гггг-мм-дд:", reply_markup=hide_menu())
     await States.ENTER_DATESTART_STATE.set()
 
 
 @dispatcher.message_handler(state=States.ENTER_DATESTART_STATE)
 async def enter_date_start(message: Message, state: FSMContext):
-    date_start = message.text
-    global userevent_global
-    async with state.proxy() as userevent:
-        userevent["date_start"] = date_start
-    async with state.proxy() as userevent:
-        userevent_global = userevent
-    await message.answer(text="Введите время начала события в формате чч:мм :", reply_markup=hide_menu())
-    await States.ENTER_TIMESTART_STATE.set()
+    try:
+        date_start = time.strptime(message.text, '%Y-%m-%d')
+        date_start = message.text
+        global userevent_global
+        async with state.proxy() as userevent:
+            userevent["date_start"] = date_start
+        async with state.proxy() as userevent:
+            userevent_global = userevent
+        await message.answer(text="Введите время начала события в формате чч:мм :", reply_markup=hide_menu())
+        await States.ENTER_TIMESTART_STATE.set()
+    except ValueError:
+        await message.answer(text="Некорректный формат даты! Введите еще раз:")
 
 
 @dispatcher.message_handler(state=States.ENTER_TIMESTART_STATE)
 async def enter_time_start(message: Message, state: FSMContext):
-    time_start = message.text
-    global userevent_global
-    async with state.proxy() as userevent:
-        userevent["time_start"] = time_start
-    async with state.proxy() as userevent:
-        userevent["start_date"] = str(userevent_global["date_start"] + 'T' + userevent_global["time_start"] + ':00+03:00')
-    async with state.proxy() as userevent:
-        userevent_global = userevent
-    await message.answer(text="Введите дату окончания события в формате гггг-мм-дд:", reply_markup=hide_menu())
-    await States.ENTER_DATEEND_STATE.set()
+    try:
+        time_start = time.strptime(message.text, '%H:%M')
+        time_start = message.text
+        async with state.proxy() as userevent:
+            userevent["time_start"] = time_start
+        async with state.proxy() as userevent:
+            userevent_global = userevent
+        async with state.proxy() as userevent:
+            userevent["start_date"] = str(userevent_global["date_start"] + 'T' + userevent_global["time_start"] + ':00+03:00')
+        await message.answer(text="Введите дату окончания события в формате гггг-мм-дд:", reply_markup=hide_menu())
+        await States.ENTER_DATEEND_STATE.set()
+    except ValueError:
+        await message.answer(text="Некорректный формат времени! Введите еще раз:")
 
 
 @dispatcher.message_handler(state=States.ENTER_DATEEND_STATE)
 async def enter_date_end(message: Message, state: FSMContext):
-    date_end = message.text
-    async with state.proxy() as userevent:
-        userevent["date_end"] = date_end
-    async with state.proxy() as userevent:
-        userevent_global = userevent
-    await message.answer(text="Введите время окончания события в формате чч:мм :", reply_markup=hide_menu())
-    await States.ENTER_TIMEEND_STATE.set()
+    try:
+        date_end = time.strptime(message.text, '%Y-%m-%d')
+        date_end = message.text
+        async with state.proxy() as userevent:
+            userevent["date_end"] = date_end
+        async with state.proxy() as userevent:
+            userevent_global = userevent
+        await message.answer(text="Введите время окончания события в формате чч:мм :", reply_markup=hide_menu())
+        await States.ENTER_TIMEEND_STATE.set()
+    except ValueError:
+        await message.answer(text="Некорректный формат даты! Введите еще раз:")
 
 
 @dispatcher.message_handler(state=States.ENTER_TIMEEND_STATE)
 async def enter_time_end(message: Message, state: FSMContext):
-    time_end = message.text
-    global userevent_global
-    async with state.proxy() as userevent:
-        userevent["time_end"] = time_end
-    async with state.proxy() as userevent:
-        userevent["end_date"] = str(userevent_global["date_end"] + 'T' + userevent_global["time_end"] + ':00+03:00')
-    async with state.proxy() as userevent:
-        userevent_global = userevent
-    await message.answer(text="Введите описание события:", reply_markup=hide_menu())
-    await States.ENTER_DESCRIPTION_STATE.set()
+    try:
+        time_end = time.strptime(message.text, '%H:%M')
+        time_end = message.text
+        async with state.proxy() as userevent:
+            userevent["time_end"] = time_end
+        async with state.proxy() as userevent:
+            userevent_global = userevent
+        async with state.proxy() as userevent:
+            userevent["end_date"] = str(userevent_global["date_end"] + 'T' + userevent_global["time_end"] + ':00+03:00')
+        await message.answer(text="Введите описание события:", reply_markup=hide_menu())
+        await States.ENTER_DESCRIPTION_STATE.set()
+    except ValueError:
+        await message.answer(text="Некорректный формат времени! Введите еще раз:")
 
 
 @dispatcher.message_handler(state=States.ENTER_DESCRIPTION_STATE)
