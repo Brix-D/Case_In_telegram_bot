@@ -8,7 +8,7 @@ client_secret_calendar = "..\\deadlines\\client_secret.json"  # Google API Calen
 # путь для тех кто запускает через venv
 CALENDAR_TOKEN_PATH = "..\\token.pkl"
 documents_directory = "..\\documentation\\documentation_files"
-database_path = "../Case_in_bot.db"
+database_path = "..\\Case_in_bot.db"
 ROSATOM_SITE = "https://www.rosatom.ru/"
 
 
