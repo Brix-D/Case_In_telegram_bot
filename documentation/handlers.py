@@ -19,6 +19,7 @@ async def show_documentation(message: Message):
     """
     await message.answer(text="Вот список основных документов: \n", reply_markup=back_to_menu())
     # directory = os.path.join("..", "documentation", "documentation_files")
+    await message.answer(text="Список загружается, подождите немного")
     for file in get_all_documents(documents_directory):
         document = upload_document(os.path.join(documents_directory, file))
         await message.answer_document(document=document)
