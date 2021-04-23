@@ -2,13 +2,20 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 # API_KEY = "1707362497:AAFSyW_HreeIUZ-5DSdk5xFDe_DCWyIUB8M"
 API_KEY = "1787274187:AAFKOJPLmdbrIKVRRCi7LMAcL49Su042b74"
 admin_id = 1011677109
+
+# Янино
 calendar_id = "bbottelegram@gmail.com"  # календарь в общем доступе
 # client_secret_calendar = "deadlines\\client_secret.json"  # Google API Calendar
-client_secret_calendar = "..\\deadlines\\client_secret.json"  # Google API Calendar
+client_secret_calendar = "deadlines\\client_secret.json"  # Google API Calendar
 # путь для тех кто запускает через venv
-CALENDAR_TOKEN_PATH = "..\\token.pkl"
-documents_directory = "..\\documentation\\documentation_files"
-database_path = "..\\Case_in_bot.db"
+CALENDAR_TOKEN_PATH = "token.pkl"
+
+# Мое
+
+
+
+documents_directory = "documentation\\documentation_files"
+database_path = "Case_in_bot.db"
 ROSATOM_SITE = "https://www.rosatom.ru/"
 
 
