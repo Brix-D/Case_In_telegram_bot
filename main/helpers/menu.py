@@ -5,6 +5,7 @@ from main.helpers.smiles import create_smile
 
 
 def main_menu(user=None):
+    """Главное меню"""
     keys = [
             [
                 KeyboardButton(text="Покажи мне документацию" + create_smile("\\ud83d\\udcc4")),
@@ -27,10 +28,12 @@ def main_menu(user=None):
 
 
 def hide_menu():
+    """Скрыть меню"""
     return ReplyKeyboardRemove()
 
 
-def deadlines_menu(user=None):  # меню для просмотра и создания событий
+def deadlines_menu(user=None):
+    """меню для просмотра и создания событий"""
     q_choice = [
         [
             KeyboardButton(text="Покажи мне события" + create_smile("\\ud83d\\uddd3")),
@@ -49,6 +52,7 @@ def deadlines_menu(user=None):  # меню для просмотра и созд
 
 
 def question_menu():
+    """Меню "другие вопросы" """
     q_choice = [
         [
             KeyboardButton(text="Типичные вопросы" + create_smile("\\u2754"))
@@ -68,6 +72,7 @@ def question_menu():
 
 
 def back_to_menu():
+    """Меню назад"""
     q_choice = [
         [
             KeyboardButton(text="В меню")
@@ -78,6 +83,7 @@ def back_to_menu():
 
 
 def check_new_users_menu():
+    """Меню панели админа"""
     q_choice = [
         [
             KeyboardButton(text="Просмотреть новые заявки")
@@ -88,6 +94,7 @@ def check_new_users_menu():
 
 
 def generate_workers_buttons(workers):
+    """Меню для генерации кнопок с нвыми сотрудниками"""
     q_choice = []
 
     for worker in workers:

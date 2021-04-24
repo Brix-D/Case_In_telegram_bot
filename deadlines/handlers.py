@@ -41,7 +41,7 @@ async def show_events(message: Message):
 
         if not events_list:
             message_text = 'Нет событий на ближайшую неделю'
-            await message.answer(text=message_text)
+            # await message.answer(text=message_text)
         else:
             message_text = '<b>События на ближайшую неделю:</b>\n'
             for event in events_list:

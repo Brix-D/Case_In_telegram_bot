@@ -5,14 +5,6 @@ import asyncio
 from main import config
 
 
-# импорт хендлеров
-
-# import documentation.handlers
-
-# import deadlines.handlers
-# import questions.handlers
-
-
 loop = asyncio.get_event_loop()
 bot = Bot(config.API_KEY, parse_mode="HTML")
 dispatcher = Dispatcher(bot, loop=loop, storage=MemoryStorage())
@@ -24,6 +16,7 @@ def main():
 
 if __name__ == "__main__":
     from main.handlers import dispatcher, on_start_message, on_finish_message
+    # импорт хендлеров
     from documentation.handlers import show_documentation
     from deadlines.handlers import show_calendar_menu, create_event
     from questions.handlers import question_menu, other_questions, ask_new_question

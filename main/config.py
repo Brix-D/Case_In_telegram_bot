@@ -1,18 +1,10 @@
 from aiogram.dispatcher.filters.state import StatesGroup, State
-# API_KEY = "1707362497:AAFSyW_HreeIUZ-5DSdk5xFDe_DCWyIUB8M"
 API_KEY = "1787274187:AAFKOJPLmdbrIKVRRCi7LMAcL49Su042b74"
 admin_id = 1011677109
 
-# Янино
-calendar_id = "bbottelegram@gmail.com"  # календарь в общем доступе
-# client_secret_calendar = "deadlines\\client_secret.json"  # Google API Calendar
+calendar_id = "shlyakhta4@gmail.com"  # календарь в общем доступе
 client_secret_calendar = "deadlines\\client_secret.json"  # Google API Calendar
-# путь для тех кто запускает через venv
 CALENDAR_TOKEN_PATH = "token.pkl"
-
-# Мое
-
-
 
 documents_directory = "documentation\\documentation_files"
 database_path = "Case_in_bot.db"
@@ -21,12 +13,10 @@ ROSATOM_SITE = "https://www.rosatom.ru/"
 
 class States(StatesGroup):
     """
-    Машина конечных состояний:
-    у нас два сотстояния ввод текста и ввод команд
-    также есть нулевое состояние, при запуске
+    Машина конечных состояний: есть сотстояния ввода текста и ввода команд
+    также есть нулевое состояние, при запуске.
     состояния переключатся при функциях вроде "задать вопрос"
     """
-    # NON_AUTHORISED_STATE = State()
     COMMAND_STATE = State()
     ENTER_QUESTION_STATE = State()
     ENTER_EMAIL_STATE = State()
