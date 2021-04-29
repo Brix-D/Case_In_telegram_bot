@@ -11,17 +11,17 @@ class Admin(Worker):
         super().__init__()
 
     def get_workers_without_post(self):
-        cursor = self.connection.cursor()
-        raw_data = cursor.execute("SELECT * FROM Worker WHERE Post_id is Null")
-        result = raw_data.fetchall()
-        dict_data = [dict(row) for row in result]
-        return dict_data
+        cursor = self.connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM worker WHERE Post_id is Null")
+        result = cursor.fetchall()
+        # dict_data = [dict(row) for row in result]
+        return result
 
     def set_worker_post(self, userdata):
-        cursor = self.connection.cursor()
+        cursor = self.connection.cursor(prepared=True,)
         post_data = (userdata["post"],)
-        select_post_raw = cursor.execute('SELECT Id FROM Post WHERE Title = ? ', post_data)
-        select_post_id = select_post_raw.fetchone()
+        cursor.execute('SELECT Id FROM post WHERE Title = %s ', post_data)
+        select_post_id = cursor.fetchone()
         print(select_post_id)
         if not select_post_id:
             raise exceptions.PostNotFound('Должность не найдена')
@@ -29,5 +29,5 @@ class Admin(Worker):
 
             query_data = (select_post_id[0], userdata["worker_id"],)
 
-            cursor.execute("UPDATE Worker SET Post_id = ? WHERE Telegram_id = ?", query_data)
+            cursor.execute("UPDATE worker SET Post_id = %s WHERE Telegram_id = %s", query_data)
             self.connection.commit()

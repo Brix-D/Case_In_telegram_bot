@@ -28,7 +28,6 @@ async def other_questions(message: Message):
 async def typical_questions(message: Message):
     """
     Команда типичные вопросы
-    To Do: сделать считывание типичных вопросов из файла
     :param message:
     :return:
     """
@@ -52,7 +51,6 @@ async def ask_new_question(message: Message):
     await States.ENTER_QUESTION_STATE.set()
     await message.answer(text="Задать вопрос\n\nНапишите Ваш вопрос:\n\n\n",
                          reply_markup=back_to_menu())
-# hmm
 
 
 @dispatcher.message_handler(state=States.ENTER_QUESTION_STATE)
@@ -78,7 +76,11 @@ async def my_post(message: Message):
     :return:
     """
     connection = Worker()
-    worker = connection.get_worker(message.from_user)
+    try:
+        worker = connection.get_worker(message.from_user)
+    except:
+        connection.close_connection()
+
     text_html = f'<b>ФИО: </b><i>{worker["Firstname"]} {worker["Lastname"]}</i>\n' \
                 f'<b>Должность: </b><i>{worker["Title"]}</i>\n' \
                 f'<b>Зарплата: </b><i>{worker["Salary"]}</i>\n'

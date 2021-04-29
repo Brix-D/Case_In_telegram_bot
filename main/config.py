@@ -2,6 +2,14 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 API_KEY = "1787274187:AAFKOJPLmdbrIKVRRCi7LMAcL49Su042b74"
 admin_id = 1011677109
 
+# MySql database config
+# ------------------------------
+DB_HOSTNAME = "localhost"
+DB_USERNAME = "root"
+DB_PASSWORD = "Grossper123"
+DB_DATABASE_NAME = "case_in_bot"
+# ------------------------------
+
 calendar_id = "shlyakhta4@gmail.com"  # календарь в общем доступе
 client_secret_calendar = "deadlines\\client_secret.json"  # Google API Calendar
 CALENDAR_TOKEN_PATH = "token.pkl"
