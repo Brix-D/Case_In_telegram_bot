@@ -1,8 +1,5 @@
-import sqlite3
-
 from DatabaseModels.Worker import Worker
 from DatabaseModels.helpers import exceptions
-from main.config import database_path
 
 
 class Admin(Worker):

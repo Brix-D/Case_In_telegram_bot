@@ -1,16 +1,12 @@
-import sqlite3
 import mysql.connector as mysql
-from mysql.connector.cursor import MySQLCursorPrepared
 
-from main.config import database_path, DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME
+from main.config import DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME
 from DatabaseModels.helpers import exceptions
 
 
 class Worker:
 
     def __init__(self):
-        # self.connection = sqlite3.connect(database_path)
-        # self.connection.row_factory = sqlite3.Row
         self.connection = mysql.connect(
             host=DB_HOSTNAME,
             user=DB_USERNAME,
