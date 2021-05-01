@@ -7,7 +7,7 @@ from aiogram.types import Message
 from aiogram.dispatcher.filters import Command, Text
 from aiogram.utils.exceptions import BotBlocked
 
-from main.config import admin_id, States, ROSATOM_SITE, Authorized_states
+from main.config_dev import admin_id, States, ROSATOM_SITE, Authorized_states
 from main.helpers.menu import main_menu, back_to_menu, hide_menu, generate_workers_buttons
 from main.helpers.smiles import create_smile
 

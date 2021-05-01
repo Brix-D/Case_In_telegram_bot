@@ -2,11 +2,11 @@ from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 import asyncio
-from main import config
+from main import config_dev
 
 
 loop = asyncio.get_event_loop()
-bot = Bot(config.API_KEY, parse_mode="HTML")
+bot = Bot(config_dev.API_KEY, parse_mode="HTML")
 dispatcher = Dispatcher(bot, loop=loop, storage=MemoryStorage())
 
 

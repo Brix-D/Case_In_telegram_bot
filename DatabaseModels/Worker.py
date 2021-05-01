@@ -1,6 +1,6 @@
 import mysql.connector as mysql
 
-from main.config import DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME
+from main.config_dev import DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME
 from DatabaseModels.helpers import exceptions
 
 

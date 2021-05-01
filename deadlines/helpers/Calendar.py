@@ -7,7 +7,7 @@ from apiclient import discovery
 from oauth2client.service_account import ServiceAccountCredentials
 from oauth2client.client import HttpAccessTokenRefreshError
 
-from main.config import client_secret_calendar, calendar_id, CALENDAR_TOKEN_PATH
+from main.config_dev import client_secret_calendar, calendar_id, CALENDAR_TOKEN_PATH
 from main.helpers.menu import back_to_menu
 
 

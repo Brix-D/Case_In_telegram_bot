@@ -7,7 +7,7 @@ from aiogram.types import Message, CallbackQuery
 from DatabaseModels.admin import Admin
 from DatabaseModels.helpers.exceptions import PostNotFound
 from app import dispatcher, bot
-from main.config import States, admin_id, Authorized_states
+from main.config_dev import States, admin_id, Authorized_states
 from main.helpers.menu import generate_workers_buttons, back_to_menu, main_menu
 
 

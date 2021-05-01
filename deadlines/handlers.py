@@ -5,7 +5,7 @@ from aiogram.dispatcher.filters import Text
 from oauth2client.client import HttpAccessTokenRefreshError
 
 from app import dispatcher
-from main.config import States, Authorized_states, admin_id
+from main.config_dev import States, Authorized_states, admin_id
 from main.helpers.menu import back_to_menu, deadlines_menu, hide_menu, main_menu
 from main.helpers.smiles import create_smile
 from deadlines.helpers.Calendar import Calendar

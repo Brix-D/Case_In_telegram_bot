@@ -7,7 +7,7 @@ from app import dispatcher
 from main.helpers.menu import hide_menu, back_to_menu
 from documentation.helpers.send_document import upload_document, get_all_documents
 from main.helpers.smiles import create_smile
-from main.config import documents_directory, Authorized_states
+from main.config_dev import documents_directory, Authorized_states
 
 
 @dispatcher.message_handler(Text("Покажи мне документацию" + create_smile("\\ud83d\\udcc4")), state=Authorized_states)

@@ -4,7 +4,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
 
 from app import dispatcher, bot
-from main.config import States, admin_id
+from main.config_dev import States, admin_id
 from main.helpers.menu import back_to_menu, main_menu, hide_menu, check_new_users_menu
 from DatabaseModels.Worker import Worker
 from DatabaseModels.helpers.exceptions import PostNotFound, IdNotUnique

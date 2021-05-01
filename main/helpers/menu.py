@@ -1,6 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, InlineKeyboardButton
 
-from main.config import admin_id
+from main.config_dev import admin_id
 from main.helpers.smiles import create_smile
 
 

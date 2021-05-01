@@ -2,7 +2,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
 from aiogram.dispatcher.filters import Text
 
-from main.config import admin_id, States, Authorized_states
+from main.config_dev import admin_id, States, Authorized_states
 from app import bot, dispatcher
 from main.handlers import general_menu
 from main.helpers.menu import hide_menu, question_menu, back_to_menu
